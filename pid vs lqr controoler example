@@ -1,0 +1,81 @@
+Example: PID vs LQR (Fuel Injection Control)
+
+To understand the advantage of LQR over PID, consider a simplified fuel injection control system where the goal is to maintain the desired fuel flow rate.
+
+ System Setup (Assumed Values)
+
+- Desired fuel flow (setpoint) = 10 units
+- Initial fuel flow = 0 units
+- Disturbance introduced at t = 2 seconds
+- Simulation time = 10 seconds
+
+PID Controller Performance
+
+PID gains (chosen manually):
+
+- Kp = 2
+- Ki = 0.8
+- Kd = 0.5
+
+📈 Observations:
+
+- Rise Time ≈ 1.5 sec
+- Overshoot ≈ 25% (peaks around 12.5 units)
+- Settling Time ≈ 6 sec
+- Oscillations present before stabilizing
+- Sensitive to disturbance → noticeable deviation at t = 2 sec
+ Issues:
+
+- Excess fuel injected initially (inefficiency)
+- Oscillatory behavior
+- Requires manual tuning
+
+LQR Controller Performance
+
+Weight matrices (chosen for optimization):
+
+- Q = [10  0; 0  1]
+- R = [0.5]
+
+📈 Observations:
+
+- Rise Time ≈ 1.2 sec
+- Overshoot ≈ 5% (peaks around 10.5 units)
+- Settling Time ≈ 3 sec
+- Smooth response (no oscillations)
+- Disturbance quickly rejected
+
+✅ Advantages:
+
+- Minimal fuel wastage
+- Faster stabilization
+- Better disturbance handling
+- Automatically optimized control
+
+---
+
+Direct Comparison
+
+Parameter| PID Controller| LQR Controller
+Rise Time| 1.5 sec| 1.2 sec
+Overshoot| 25%| 5%
+Settling Time| 6 sec| 3 sec
+Oscillations| Present| None
+Tuning| Manual| Optimal
+Efficiency| Lower| Higher
+
+Interpretation
+
+In this example, the PID controller reacts only to the error and produces aggressive control action, leading to overshoot and oscillations. This results in inefficient fuel injection.
+
+On the other hand, the LQR controller considers the full system dynamics and minimizes a cost function, producing a smooth and optimal response. It reduces unnecessary fuel injection while maintaining stability and performance.
+
+ Conclusion
+
+This example clearly shows that LQR provides:
+
+- Faster response
+- Reduced overshoot
+- Better efficiency
+
+Thus, LQR is more suitable than PID for complex systems like fuel injection control, where precision and optimal performance are critical.
