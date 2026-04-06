@@ -43,7 +43,7 @@ Together, they form an LQG (Linear Quadratic Gaussian) control system.
 
 ---
                 
-1. Project Overview
+1.detailed Project Overview:
 This project implements advanced control strategies for regulating the Air-Fuel Ratio (AFR) in an engine’s fuel injection system.
 Goal:
 Maintain the stoichiometric AFR (~14.7) under varying engine conditions using optimal control strategies.
@@ -92,16 +92,18 @@ Control Effort
 High
 Disturbance Rejection
 Moderate
-5. LQR Control Loop
+----
+5. LQR Control Loop:
 LQR Cost Function:
 Design Steps:
 Choose weighting matrices qand rbased on performance priorities
 Compute optimal gain:
-Matlab
+matlab syntax
 
 K = lqr(A, B, Q, R);
 u = -K * (x - x_ref);
 Apply control input to fuel injection loop
+------
 Advantages over PID:
 Optimally balances tracking error vs control effort
 Faster convergence to AFR reference
