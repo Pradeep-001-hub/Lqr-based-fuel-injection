@@ -1,5 +1,6 @@
 flowchart TB
     %% Reference
+```mermaid
     style REF fill:#f9f,stroke:#333,stroke-width:2px
     REF[AFR & RPM Reference r(t)\n(Setpoints)] 
 
