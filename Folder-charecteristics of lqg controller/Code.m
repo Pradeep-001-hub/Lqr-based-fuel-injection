@@ -10,7 +10,7 @@ Q = [10 0; 0 1];
 R = 0.5;
 K = lqr(A,B,Q,R);
 
-%% KALMAN FILTER
+%%KALMAN FILTER
 W = 0.2*eye(2);   % Process noise
 V = 0.5;          % Measurement noise
 
