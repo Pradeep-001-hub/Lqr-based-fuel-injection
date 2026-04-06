@@ -1,6 +1,8 @@
 # Lqr-based-fuel-injection
 Simple idea to over come pid issues
 uel Injection Control using LQR
+
+
 lqr basic design for matlab appliactions:
 % State-space matrices from linearized model
 A = [-ka 0; 0 -kf];
