@@ -1,5 +1,5 @@
 Fuel Injection Control System – Project Flow
-'''          +------------------+
+'''text        +------------------+
           |  AFR & RPM Ref   |
           |  (Setpoints)     |
           +--------+---------+
