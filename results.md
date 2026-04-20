@@ -17,7 +17,7 @@ ovarall observations:
 - LQG is more suitable for complex systems like fuel injection control in ECUs
 -------------
  comparision table:
-'mermaid
+```text
 Metric| PID Controller| LQG Controller
 Settling Time| Higher| Lower
 Overshoot| Moderate| Minimal
