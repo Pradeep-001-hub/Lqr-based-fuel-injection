@@ -202,3 +202,6 @@ Sensor noise modeled for LQG simulation
 - Nonlinear engine modeling for higher accuracy
 - Application in electric and hybrid vehicles
 - Use in aerospace and advanced control systems
+------------
+conclusion:
+          hence using pid controller can be easy and tuning can be done manually as we want.But real efficiency will increase if you can identify the state variables, noise and some allowances like friction heat generated etc. we couldnot do it with help of pid controller because it only reacts to error and then it reactify and cannot choose kp,ki,kd parameters optimally according to state. again estimation of state could be labourious.so i attempted to reduce this problem by trying to use lqg loops in ECU in stead of pid loops.
