@@ -1,1 +1,78 @@
+% create_engine_control_model.m
+% Automatically creates a runnable Simulink model for your LQR-based fuel injection project
+% Matches your block diagram (Reference -> Error -> LQR -> Plant)
 
+clear; clc; close all;
+
+% ================== 1. Define System Parameters (Customize with your values) ==================
+A = [-1.5  0.2; 
+      0.1 -0.8];          % Your 2-state matrix (AFR dynamics + RPM)
+B = [0.8; 0.3];            % Input matrix (fuel injection effect)
+C = [1 0; 0 1];            % Output matrix (measure AFR and RPM)
+D = 0;
+
+Q = diag([100 1]);         % Weight AFR error higher than RPM
+R = 0.01;                  % Control effort penalty (fuel actuator)
+
+% Compute LQR gain K
+K = lqr(A, B, Q, R);
+
+% Reference (desired AFR \~14.7, RPM can be added as second reference if needed)
+ref_value = 14.7;
+
+% Create model
+model_name = 'engine_afr_lqr_control';
+new_system(model_name);
+open_system(model_name);
+
+% Set model properties
+set_param(model_name, 'StopTime', '10', 'Solver', 'ode45');
+
+% ================== 2. Add Blocks (following your diagram) ==================
+
+% 1. Reference (Step block for AFR reference)
+add_block('simulink/Sources/Step', [model_name '/Reference r(t)'], ...
+    'Position', [100 100 150 130], ...
+    'Time', '1', 'After', num2str(ref_value), 'Before', '0');
+
+% 2. Summing Junction for Error (r - y)
+add_block('simulink/Math Operations/Sum', [model_name '/Error e(t)'], ...
+    'Position', [250 100 280 130], ...
+    'Inputs', '+-');   % + for reference, - for feedback
+
+% 3. State-Space Plant (Engine Dynamics)
+add_block('simulink/Continuous/State-Space', [model_name '/Engine Plant'], ...
+    'Position', [550 80 680 150], ...
+    'A', mat2str(A), 'B', mat2str(B), 'C', mat2str(C), 'D', mat2str(D), ...
+    'InitialCondition', '[0;0]');
+
+% 4. LQR Gain (Gain block with -K)
+add_block('simulink/Math Operations/Gain', [model_name '/LQR Controller K'], ...
+    'Position', [380 100 430 130], ...
+    'Gain', mat2str(-K));   % Negative for negative feedback
+
+% 5. Scope for outputs (AFR, RPM, Control Input)
+add_block('simulink/Sinks/Scope', [model_name '/Scopes'], ...
+    'Position', [800 50 850 180], 'NumInputPorts', '3');
+
+% Optional: Add a Scope just for Control Input u(t)
+add_block('simulink/Sinks/Scope', [model_name '/Control Input u(t)'], ...
+    'Position', [800 250 850 280]);
+
+% ================== 3. Connect the Blocks (wires) ==================
+add_line(model_name, 'Reference r(t)/1', 'Error e(t)/1');
+add_line(model_name, 'Error e(t)/1', 'LQR Controller K/1');   % For state feedback we will adjust slightly
+add_line(model_name, 'LQR Controller K/1', 'Engine Plant/1');
+add_line(model_name, 'Engine Plant/1', 'Error e(t)/2');        % Feedback from first output (AFR)
+add_line(model_name, 'Engine Plant/1', 'Scopes/1');            % AFR to Scope
+add_line(model_name, 'Engine Plant/2', 'Scopes/2');            % RPM to Scope
+add_line(model_name, 'LQR Controller K/1', 'Control Input u(t)/1'); % u(t) to separate scope
+
+% Note: For full state feedback, you may need to route both states. 
+% This basic version uses output feedback for simplicity. You can enhance it later.
+
+% ===========
+save_system(model_name);
+disp(['Model created successfully: ' model_name '.slx']);
+disp('Run the model by typing: sim(''' model_name ''')');
+disp('Customize A, B, C, D, Q, R in this script with your exact values.');
