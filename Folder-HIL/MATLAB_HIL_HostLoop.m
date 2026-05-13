@@ -125,4 +125,4 @@ plot(t, lambda_meas, 'b', t, u_command*0.3+1, 'g');
 grid on; title('Control vs AFR'); legend('λ','Control u (scaled)');
 
 save('HIL_Results_Arduino.mat', 't', 'lambda_meas', 'u_command', 'lambda_ref');
-fprintf('Results saved to HIL_Results_Arduino.mat\n');
+fprintf('Results saved to HIL_Results_Arduino.mat\n'); 
