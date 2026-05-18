@@ -12,7 +12,7 @@
 #define LED_PIN 13
 
 // === Select Controller (uncomment only one) ===
-#define USE_LQG     // Recommended for real ECU
+#define USE_LQG  // Recommended for real ECU
 // #define USE_LQR
 // #define USE_PID
 
