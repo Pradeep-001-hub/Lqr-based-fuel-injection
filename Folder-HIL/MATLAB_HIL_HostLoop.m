@@ -1,6 +1,5 @@
 %% HIL Real-Time Host Loop for Arduino - LQR/LQG Fuel Injection
 % Compatible with Controller_Firmware.ino (100 Hz)
-% Pradeep's LQR Research Repo
 
 clear; clc; close all;
 
@@ -22,7 +21,7 @@ try
     ser = serialport(COM_PORT, BAUD_RATE, 'Timeout', 2);
     configureTerminator(ser, "CR/LF");
     pause(2.5);  % Wait for Arduino boot
-    disp('✅ Arduino Connected Successfully');
+    disp(' Arduino Connected Successfully');
 catch ME
     error('Serial connection failed: %s\nCheck port and Arduino connection.', ME.message);
 end
@@ -38,7 +37,7 @@ u_command = zeros(1, n);
 states = zeros(4, n);   % For logging if needed
 
 %% ========== REAL-TIME HIL LOOP ==========
-disp('🚀 Starting HIL Simulation... (Press Ctrl+C to stop)');
+disp(' Starting HIL Simulation... (Press Ctrl+C to stop)');
 
 tic;
 for i = 2:n
@@ -102,7 +101,7 @@ end
 
 %% ========== CLEANUP & RESULTS ==========
 clear ser;
-disp('✅ HIL Simulation Completed');
+disp('HIL Simulation Completed');
 
 % Final Plots
 figure('Position',[100 100 1200 700]);
