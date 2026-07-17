@@ -1,0 +1,49 @@
+               Driver Input
+                     │
+                     ▼
+         +----------------------+
+         |     Sensor Layer     |
+         |----------------------|
+         | AFR Sensor           |
+         | RPM Sensor           |
+         | Temperature Sensor   |
+         | MAP Sensor           |
+         | TPS Sensor           |
+         +----------------------+
+                     │
+                     ▼
+        +-----------------------+
+        | Signal Conditioning   |
+        |-----------------------|
+        | ADC Conversion        |
+        | Digital Filtering     |
+        | Fault Detection       |
+        +-----------------------+
+                     │
+                     ▼
+        +-----------------------+
+        | State Estimation      |
+        |-----------------------|
+        | Kalman Filter         |
+        | Sensor Fusion         |
+        +-----------------------+
+                     │
+                     ▼
+        +-----------------------+
+        | Controller            |
+        |-----------------------|
+        | LQI                  |
+        | Feedforward          |
+        | Anti-Windup          |
+        +-----------------------+
+                     │
+                     ▼
+        +-----------------------+
+        | Actuator Layer        |
+        |-----------------------|
+        | Injector Driver       |
+        | Fuel Pulse Scheduler  |
+        +-----------------------+
+                     │
+                     ▼
+                 Fuel Injector
