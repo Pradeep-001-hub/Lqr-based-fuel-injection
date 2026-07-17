@@ -1,0 +1,15 @@
+Read Sensors
+      ↓
+Check Faults
+      ↓
+Kalman Filter
+      ↓
+LQI Controller
+      ↓
+Injector Scheduler
+      ↓
+Diagnostics
+      ↓
+Communication
+      ↓
+Repeat
