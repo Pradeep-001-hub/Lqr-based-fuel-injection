@@ -1,1 +1,41 @@
-
+FuelInjectionECU/
+│
+├── Core/
+│   ├── main.cpp
+│   ├── scheduler.cpp
+│   ├── scheduler.h
+│   ├── config.h
+│
+├── Drivers/
+│   ├── adc.cpp
+│   ├── adc.h
+│   ├── pwm.cpp
+│   ├── pwm.h
+│   ├── crank.cpp
+│   ├── crank.h
+│   ├── can.cpp
+│   ├── can.h
+│
+├── Sensors/
+│   ├── lambda.cpp
+│   ├── lambda.h
+│   ├── rpm.cpp
+│   ├── rpm.h
+│
+├── Control/
+│   ├── lqi.cpp
+│   ├── lqi.h
+│   ├── kalman.cpp
+│   ├── kalman.h
+│
+├── Diagnostics/
+│   ├── faults.cpp
+│   ├── faults.h
+│
+├── Calibration/
+│   ├── maps.h
+│   ├── constants.h
+│
+├── Tests/
+│
+├── README.md
